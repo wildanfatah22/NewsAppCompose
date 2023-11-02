@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -37,7 +38,7 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
             if (articles.itemCount > 10) {
                 articles.itemSnapshotList.items
                     .slice(IntRange(start = 0, endInclusive = 9))
-                    .joinToString(separator = " \uD83d\uDFE5 ")
+                    .joinToString(separator = " \uD83D\uDFE5 ") { it.title }
             } else {
                 ""
             }
@@ -55,8 +56,9 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
             contentDescription = null,
             modifier = Modifier
                 .width(150.dp)
-                .height(30.dp)
+                .height(50.dp)
                 .padding(horizontal = MediumPadding1)
+                .align(Alignment.CenterHorizontally)
         )
 
         Spacer(modifier = Modifier.height(MediumPadding1))

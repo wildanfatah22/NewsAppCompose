@@ -28,6 +28,9 @@ import com.example.movieapps.presentation.utils.Dimens.SmallPadding1
 import com.example.newsappcompose.domain.model.Article
 import com.example.newsappcompose.domain.model.Source
 import com.example.newsappcompose.presentation.ui.theme.NewsAppComposeTheme
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @Composable
 fun CardArticle(
@@ -36,6 +39,17 @@ fun CardArticle(
     onClick: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
+    val dateFormatInput = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+    val dateFormatOutput = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+
+    val formattedDate = try {
+        val date = dateFormatInput.parse(article.publishedAt)
+        date?.let { dateFormatOutput.format(it) }
+    } catch (e: ParseException) {
+        null
+    }
+
+
     Row(
         modifier = modifier.clickable { onClick?.invoke() },
 
@@ -55,11 +69,13 @@ fun CardArticle(
                 .padding(horizontal = SmallPadding1)
                 .height(CardSize)
         ) {
-            Text(
-                text = article.publishedAt,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.primary
-            )
+            formattedDate?.let { date ->
+                Text(
+                    text = date,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
             Spacer(modifier = Modifier.width(SmallPadding1))
             Text(
                 text = article.title,
@@ -91,11 +107,11 @@ fun ArticleCardPreview() {
                 author = "",
                 content = "",
                 description = "",
-                publishedAt = "2 hours",
+                publishedAt = "2023-11-01",
                 source = Source(id = "", name = "Lorem"),
                 title = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                 url = "",
-                urlToImage = "https://ichef.bbci.co.uk/live-experience/cps/624/cpsprodpb/11787/production/_124395517_bbcbreakingnewsgraphic.jpg"
+                urlToImage = "https://akcdn.detik.net.id/visual/2023/07/05/serangan-terbesar-israel-ke-jenin-dalam-20-tahun-5_169.jpeg?w=650&q=90"
             )
         )
     }

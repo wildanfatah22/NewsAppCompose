@@ -52,7 +52,6 @@ fun ArticleCardShimmerEffect(modifier: Modifier = Modifier) {
                         .height(15.dp)
                         .shimmer()
                 )
-
             }
         }
     }
