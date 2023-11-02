@@ -4,6 +4,7 @@ import com.example.newsappcompose.data.remote.retrofit.ApiService
 import com.example.newsappcompose.data.repository.NewsRepositoryImpl
 import com.example.newsappcompose.domain.repository.NewsRepository
 import com.example.newsappcompose.domain.usecase.GetNewsUseCase
+import com.example.newsappcompose.domain.usecase.GetSearchUseCase
 import com.example.newsappcompose.domain.usecase.NewsUseCase
 import dagger.Module
 import dagger.Provides
@@ -32,6 +33,7 @@ object AppInjection {
     ): NewsUseCase {
         return NewsUseCase(
             getNewsUseCase = GetNewsUseCase(newsRepository),
+            getSearchUseCase = GetSearchUseCase(newsRepository)
         )
     }
 

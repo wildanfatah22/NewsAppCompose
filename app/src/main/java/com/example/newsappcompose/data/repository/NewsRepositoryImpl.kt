@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.newsappcompose.data.remote.paging.NewsPagingSource
+import com.example.newsappcompose.data.remote.paging.SearchNewsPagingSource
 import com.example.newsappcompose.data.remote.retrofit.ApiService
 import com.example.newsappcompose.domain.model.Article
 import com.example.newsappcompose.domain.repository.NewsRepository
@@ -17,6 +18,19 @@ class NewsRepositoryImpl(
             config = PagingConfig(pageSize = 10),
             pagingSourceFactory = {
                 NewsPagingSource(apiService = apiService, sources = sources.joinToString(separator = ","))
+            }
+        ).flow
+    }
+
+    override fun searchNews(searchQuery: String, sources: List<String>): Flow<PagingData<Article>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = {
+                SearchNewsPagingSource(
+                    apiService = apiService,
+                    searchQuery = searchQuery,
+                    sources = sources.joinToString(separator = ",")
+                )
             }
         ).flow
     }
