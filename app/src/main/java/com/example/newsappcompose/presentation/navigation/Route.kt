@@ -1,6 +1,5 @@
 package com.example.newsappcompose.presentation.navigation
 
-import androidx.navigation.NamedNavArgument
 
 sealed class Route(
     val route: String,
