@@ -29,6 +29,7 @@ import com.example.newsappcompose.presentation.ui.detail.DetailScreen
 import com.example.newsappcompose.presentation.ui.detail.DetailsViewModel
 import com.example.newsappcompose.presentation.ui.home.HomeScreen
 import com.example.newsappcompose.presentation.ui.home.HomeViewModel
+import com.example.newsappcompose.presentation.ui.user.UserScreen
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -134,6 +135,10 @@ fun NewsNavigator() {
                         )
                     }
                 )
+            }
+            composable(route = Route.UserScreen.route) {
+                OnBackClickStateSaver(navController = navController)
+                UserScreen()
             }
         }
     }
