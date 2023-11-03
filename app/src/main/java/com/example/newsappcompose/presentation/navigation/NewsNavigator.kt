@@ -26,7 +26,7 @@ import com.example.newsappcompose.presentation.ui.bookmark.BookMarkViewModel
 import com.example.newsappcompose.presentation.ui.components.BottomNavigation
 import com.example.newsappcompose.presentation.ui.components.BottomNavigationItem
 import com.example.newsappcompose.presentation.ui.detail.DetailScreen
-import com.example.newsappcompose.presentation.ui.detail.DetailsViewModel
+import com.example.newsappcompose.presentation.ui.detail.DetailViewModel
 import com.example.newsappcompose.presentation.ui.home.HomeScreen
 import com.example.newsappcompose.presentation.ui.home.HomeViewModel
 import com.example.newsappcompose.presentation.ui.user.UserScreen
@@ -102,8 +102,8 @@ fun NewsNavigator() {
                     state = state,
                     event = viewModel::onEvent,
                     articles = articles,
-                    navigateToDetails = { article ->
-                        navigateToDetails(
+                    navigateToDetail = { article ->
+                        navigateToDetail(
                             navController = navController,
                             article = article
                         )
@@ -111,13 +111,17 @@ fun NewsNavigator() {
                 )
             }
             composable(route = Route.DetailScreen.route) {
-                val viewModel: DetailsViewModel = hiltViewModel()
+                val viewModel: DetailViewModel = hiltViewModel()
                 navController.previousBackStackEntry?.savedStateHandle?.get<Article?>("article")
                     ?.let { article ->
+                        viewModel.loadBookmarkStatus(article)
+
                         DetailScreen(
                             article = article,
                             event = viewModel::onEvent,
                             navigateUp = { navController.navigateUp() },
+                            sideEffect = viewModel.sideEffect,
+                            isBookmarked = viewModel.isBookmarked
                         )
                     }
 
@@ -128,8 +132,8 @@ fun NewsNavigator() {
                 OnBackClickStateSaver(navController = navController)
                 BookMarkScreen(
                     state = state,
-                    navigateToDetails = { article ->
-                        navigateToDetails(
+                    navigateToDetail = { article ->
+                        navigateToDetail(
                             navController = navController,
                             article = article
                         )
@@ -166,7 +170,7 @@ private fun navigateToTab(navController: NavController, route: String) {
     }
 }
 
-private fun navigateToDetails(navController: NavController, article: Article){
+private fun navigateToDetail(navController: NavController, article: Article){
     navController.currentBackStackEntry?.savedStateHandle?.set("article", article)
     navController.navigate(
         route = Route.DetailScreen.route

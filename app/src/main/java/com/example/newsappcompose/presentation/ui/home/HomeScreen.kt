@@ -36,7 +36,7 @@ fun HomeScreen(
     state: SearchState,
     articles: LazyPagingItems<Article>,
     event:(SearchEvent) -> Unit,
-    navigateToDetails: (Article) -> Unit
+    navigateToDetail: (Article) -> Unit
 ) {
     val titles by remember {
         derivedStateOf {
@@ -102,7 +102,7 @@ fun HomeScreen(
             Articles(
                 modifier = Modifier.padding(horizontal = MediumPadding1),
                 articles = articles,
-                onClick = navigateToDetails
+                onClick = navigateToDetail
             )
         }
     }

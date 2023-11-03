@@ -13,7 +13,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.newsappcompose.R
@@ -22,6 +21,7 @@ import com.example.newsappcompose.presentation.ui.theme.NewsAppComposeTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailTopBar(
+    isBookmarked: Boolean,
     onBookMarkClick: () -> Unit,
     onBackClick: () -> Unit,
 ) {
@@ -44,8 +44,13 @@ fun DetailTopBar(
         actions = {
 
             IconButton(onClick = onBookMarkClick) {
+                val iconDrawable = if (isBookmarked) {
+                    painterResource(id = R.drawable.ic_bookmark_filled)
+                } else {
+                    painterResource(id = R.drawable.ic_bookmark)
+                }
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_bookmark),
+                    painter = iconDrawable,
                     contentDescription = null
                 )
             }
@@ -56,10 +61,11 @@ fun DetailTopBar(
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun DetailsTopBarPreview() {
+fun DetailTopBarPreview() {
     NewsAppComposeTheme(dynamicColor = false) {
         Box(modifier = Modifier.background(MaterialTheme.colorScheme.background)){
             DetailTopBar(
+                isBookmarked = false,
                 onBookMarkClick = { /*TODO*/ }) {
             }
         }

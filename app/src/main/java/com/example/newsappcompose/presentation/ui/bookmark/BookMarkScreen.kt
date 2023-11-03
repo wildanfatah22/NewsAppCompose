@@ -19,7 +19,7 @@ import com.example.newsappcompose.presentation.ui.components.Articles
 @Composable
 fun BookMarkScreen(
     state: BookmarkState,
-    navigateToDetails: (Article) -> Unit
+    navigateToDetail: (Article) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -38,7 +38,7 @@ fun BookMarkScreen(
 
         Articles(
             articles = state.articles,
-            onClick = { navigateToDetails(it) }
+            onClick = { navigateToDetail(it) }
         )
     }
 }
