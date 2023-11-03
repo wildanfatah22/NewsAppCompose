@@ -9,14 +9,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.movieapps.presentation.utils.Dimens.MediumPadding1
-import com.example.newsappcompose.presentation.components.Articles
-import com.example.newsappcompose.presentation.components.SearchBar
+import com.example.newsappcompose.domain.model.Article
+import com.example.newsappcompose.presentation.ui.components.Articles
+import com.example.newsappcompose.presentation.ui.components.SearchBar
 
 
 @Composable
 fun SearchScreen(
     state: SearchState,
-    event:(SearchEvent) -> Unit
+    event:(SearchEvent) -> Unit,
+    navigateToDetails:(Article) -> Unit
 ) {
     Column(
         modifier = Modifier

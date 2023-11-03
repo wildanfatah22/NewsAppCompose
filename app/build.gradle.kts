@@ -6,6 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -122,5 +123,10 @@ dependencies {
 
     //Shimmer Effect
     implementation("com.valentinilk.shimmer:compose-shimmer:1.2.0")
+
+    //Room
+    implementation("androidx.room:room-runtime:2.6.0")
+    implementation("androidx.room:room-ktx:2.6.0")
+    kapt("androidx.room:room-compiler:2.6.0")
 
 }

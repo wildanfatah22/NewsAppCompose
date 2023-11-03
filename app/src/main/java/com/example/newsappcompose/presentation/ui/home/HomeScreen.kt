@@ -26,13 +26,17 @@ import androidx.paging.compose.LazyPagingItems
 import com.example.movieapps.presentation.utils.Dimens.MediumPadding1
 import com.example.newsappcompose.R
 import com.example.newsappcompose.domain.model.Article
-import com.example.newsappcompose.presentation.components.Articles
-import com.example.newsappcompose.presentation.components.SearchBar
+import com.example.newsappcompose.presentation.ui.components.Articles
+import com.example.newsappcompose.presentation.ui.components.SearchBar
 import com.example.newsappcompose.presentation.navigation.Route
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
+fun HomeScreen(
+    articles: LazyPagingItems<Article>,
+    navigateToSearch: () -> Unit,
+    navigateToDetails: (Article) -> Unit
+) {
     val titles by remember {
         derivedStateOf {
             if (articles.itemCount > 10) {
@@ -72,7 +76,7 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
             onValueChange = {},
             onSearch = {},
             onClick = {
-                navigate(Route.SearchScreen.route)
+                navigateToSearch
             }
         )
 
@@ -91,8 +95,8 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
         Articles(
             modifier = Modifier.padding(horizontal = MediumPadding1),
             articles = articles,
-            onClick = {
-                navigate(Route.DetailScreen.route)
+            onClick = { article ->
+                navigateToDetails(article)
             }
         )
     }

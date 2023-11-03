@@ -1,4 +1,4 @@
-package com.example.newsappcompose.presentation.components
+package com.example.newsappcompose.presentation.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable

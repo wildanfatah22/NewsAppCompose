@@ -1,4 +1,4 @@
-package com.example.newsappcompose.presentation.components
+package com.example.newsappcompose.presentation.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +13,30 @@ import androidx.paging.compose.LazyPagingItems
 import com.example.movieapps.presentation.utils.Dimens.MediumPadding1
 import com.example.movieapps.presentation.utils.Dimens.SmallPadding2
 import com.example.newsappcompose.domain.model.Article
+
+
+@Composable
+fun Articles(
+    modifier: Modifier = Modifier,
+    articles: List<Article>,
+    onClick: (Article) -> Unit
+) {
+
+
+    LazyColumn(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(MediumPadding1),
+        contentPadding = PaddingValues(all = SmallPadding2)
+    ) {
+        items(
+            count = articles.size
+        ) {
+            val article = articles[it]
+            CardArticle(article = article, onClick = { onClick(article) })
+
+        }
+    }
+}
 
 @Composable
 fun Articles(
@@ -32,7 +56,7 @@ fun Articles(
                 count = articles.itemCount,
             ) {
                 articles[it]?.let { article ->
-                    CardArticle(article = article, onClick = {onClick(article)})
+                    CardArticle(article = article, onClick = { onClick(article) })
                 }
             }
         }
@@ -42,7 +66,7 @@ fun Articles(
 @Composable
 fun pagingHandle(
     article: LazyPagingItems<Article>,
-) : Boolean {
+): Boolean {
     val loadState = article.loadState
     val error = when {
         loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
@@ -51,7 +75,7 @@ fun pagingHandle(
         else -> null
     }
 
-    return when{
+    return when {
         loadState.refresh is LoadState.Loading -> {
             ShimmerEffect()
             false
@@ -70,8 +94,8 @@ fun pagingHandle(
 
 @Composable
 fun ShimmerEffect() {
-    Column(verticalArrangement = Arrangement.spacedBy(MediumPadding1)){
-        repeat(10){
+    Column(verticalArrangement = Arrangement.spacedBy(MediumPadding1)) {
+        repeat(10) {
             ArticleCardShimmerEffect(
                 modifier = Modifier.padding(horizontal = MediumPadding1)
             )

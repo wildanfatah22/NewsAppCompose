@@ -25,12 +25,7 @@ fun NavGraph(
             startDestination = Route.NewsNavigatorScreen.route
         ) {
             composable(route = Route.NewsNavigatorScreen.route){
-                val homeViewModel: HomeViewModel = hiltViewModel()
-//                val articles = homeViewModel.news.collectAsLazyPagingItems()
-//                HomeScreen(articles = articles, navigate = {})
-
-                val searchViewModel: SearchViewModel = hiltViewModel()
-                SearchScreen(state = searchViewModel.state.value, event = searchViewModel::onEvent)
+                NewsNavigator()
             }
         }
     }

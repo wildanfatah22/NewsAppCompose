@@ -1,4 +1,4 @@
-package com.example.newsappcompose.presentation.components
+package com.example.newsappcompose.presentation.ui.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.annotation.DrawableRes
@@ -77,7 +77,7 @@ fun BottomNavigationPreview() {
         BottomNavigation(items = listOf(
             BottomNavigationItem(icon = R.drawable.ic_home, text = "Home"),
             BottomNavigationItem(icon = R.drawable.ic_search, text = "Search"),
-            BottomNavigationItem(icon = R.drawable.ic_favorite, text = "Favorite"),
+            BottomNavigationItem(icon = R.drawable.ic_bookmark, text = "BookMark"),
             BottomNavigationItem(icon = R.drawable.ic_user, text = "User"),
         ), selectedItem = 0, onItemClick = {})
     }

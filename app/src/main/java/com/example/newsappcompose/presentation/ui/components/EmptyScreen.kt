@@ -1,4 +1,4 @@
-package com.example.newsappcompose.presentation.components
+package com.example.newsappcompose.presentation.ui.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.core.animateFloatAsState
