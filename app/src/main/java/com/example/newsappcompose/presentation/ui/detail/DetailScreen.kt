@@ -1,8 +1,7 @@
 package com.example.newsappcompose.presentation.ui.detail
 
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.net.Uri
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -17,6 +16,7 @@ import com.example.newsappcompose.domain.model.Article
 import com.example.newsappcompose.presentation.ui.components.DetailTopBar
 
 
+@SuppressLint("SetJavaScriptEnabled")
 @Composable
 fun DetailScreen(
     article: Article,
