@@ -23,18 +23,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.movieapps.presentation.utils.Dimens.MediumPadding1
 import com.example.newsappcompose.R
 import com.example.newsappcompose.domain.model.Article
 import com.example.newsappcompose.presentation.ui.components.Articles
 import com.example.newsappcompose.presentation.ui.components.SearchBar
-import com.example.newsappcompose.presentation.navigation.Route
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
+    state: SearchState,
     articles: LazyPagingItems<Article>,
-    navigateToSearch: () -> Unit,
+    event:(SearchEvent) -> Unit,
     navigateToDetails: (Article) -> Unit
 ) {
     val titles by remember {
@@ -71,12 +72,11 @@ fun HomeScreen(
             modifier = Modifier
                 .padding(horizontal = MediumPadding1)
                 .fillMaxWidth(),
-            text = "",
-            readOnly = true,
-            onValueChange = {},
-            onSearch = {},
-            onClick = {
-                navigateToSearch
+            text = state.searchQuery,
+            readOnly = false,
+            onValueChange = { event(SearchEvent.UpdateSearch(it)) },
+            onSearch = {
+                event(SearchEvent.SearchNews)
             }
         )
 
@@ -92,12 +92,18 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(MediumPadding1))
 
-        Articles(
-            modifier = Modifier.padding(horizontal = MediumPadding1),
-            articles = articles,
-            onClick = { article ->
-                navigateToDetails(article)
-            }
-        )
+        val displayedArticles = if (state.searchQuery.isNotEmpty()) {
+            state.articles?.collectAsLazyPagingItems()
+        } else {
+            articles
+        }
+
+        displayedArticles?.let { articles ->
+            Articles(
+                modifier = Modifier.padding(horizontal = MediumPadding1),
+                articles = articles,
+                onClick = navigateToDetails
+            )
+        }
     }
 }
