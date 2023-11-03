@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,7 +36,7 @@ fun UserScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         Column(
             modifier = Modifier
@@ -59,7 +60,7 @@ fun UserScreen(
             Spacer(modifier = Modifier.height(24.dp))
             Text(
                 text = name,
-                color = Color.Black,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.fillMaxWidth(),
@@ -68,7 +69,7 @@ fun UserScreen(
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = email,
-                color = Color.Black,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 16.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
