@@ -16,7 +16,7 @@ This news app is an Android project built using Kotlin, Jetpack Compose, and fol
 
 ## Tech Stack
 
--Programming Language: Kotlin
+- Programming Language: Kotlin
 - Framework: Jetpack Compose
 - Architecture: Clean Architecture, MVVM
 - Library:
